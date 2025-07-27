@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}報到成功 - 新僑生報到系統{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8 px-4">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- 成功標題區域 -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
+        <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">報到完成！</h1>
+      <p class="text-gray-600">恭喜您成功完成新僑生報到流程</p>
+    </div>
+
+    <!-- 主要內容卡片 -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+
+      <!-- 學生基本資訊 -->
+      <div class="p-8 border-b border-gray-200">
+        <div class="flex items-center space-x-3 mb-6">
+          <i class="fas fa-user-graduate text-primary text-xl"></i>
+          <h2 class="text-2xl font-semibold text-gray-900">學生基本資訊</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-primary rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-500">姓名</p>
+                <p class="text-lg font-semibold text-gray-900">{{ record.student.name }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-primary rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-500">報到序號</p>
+                <p class="text-lg font-semibold text-gray-900">{{ record.student.series_id }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-primary rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-500">正式學號</p>
+                <p class="text-lg font-semibold text-gray-900">{{ record.student.student_id or "系統自動分配" }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-primary rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-500">分班測驗結果</p>
+                <div class="flex items-center space-x-2">
+                  {% if record.student.is_pass_exam %}
+                  <span
+                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    <i class="fas fa-check-circle mr-1"></i>通過
+                  </span>
+                  {% else %}
+                  <span
+                    class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                    <i class="fas fa-times-circle mr-1"></i>未通過
+                  </span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-primary rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-500">就讀班級</p>
+                <p class="text-lg font-semibold text-gray-900">{{ record.student.class_id or "待分配" }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 繳費明細 -->
+      <div class="p-8">
+        <div class="flex items-center space-x-3 mb-6">
+          <i class="fas fa-credit-card text-primary text-xl"></i>
+          <h2 class="text-2xl font-semibold text-gray-900">繳費明細</h2>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <div class="font-mono text-sm leading-relaxed text-gray-700 whitespace-pre-wrap">{{
+            record.payment.render_summary() }}</div>
+        </div>
+
+        <!-- 繳費提醒 -->
+        <div class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
+          <div class="flex items-start space-x-3">
+            <i class="fas fa-info-circle text-blue-500 text-lg mt-0.5"></i>
+            <div>
+              <h3 class="text-sm font-medium text-blue-900">繳費提醒</h3>
+              <p class="text-sm text-blue-700 mt-1">
+                請保存此繳費明細作為憑證，並於指定期限內完成繳費。如有任何問題，請聯絡學校財務處。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 後續步驟 -->
+      <div class="bg-primary/5 p-8 border-t border-gray-200">
+        <div class="flex items-center space-x-3 mb-6">
+          <i class="fas fa-list-check text-primary text-xl"></i>
+          <h2 class="text-2xl font-semibold text-gray-900">後續步驟</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-credit-card text-white text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">完成繳費</h3>
+            <p class="text-sm text-gray-600">請依據繳費明細於期限內完成相關費用繳納</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-id-card text-white text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">領取學生證</h3>
+            <p class="text-sm text-gray-600">攜帶相關文件至學務處領取正式學生證</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mx-auto mb-3">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-2">開始學習</h3>
+            <p class="text-sm text-gray-600">準備迎接精彩的校園生活和學習旅程</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 操作按鈕 -->
+      <div class="p-8 bg-white border-t border-gray-200">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/report"
+            class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            返回報到頁面
+          </a>
+
+          {% if receipt %}
+          <a href="{{ url_for('static', filename='receipts/' ~ receipt) }}" target="_blank"
+            class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-primary-dark transition-colors">
+            <i class="fas fa-print mr-2"></i>
+            列印報到單
+          </a>
+          {% endif %}
+
+          <a href="/"
+            class="inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors">
+            <i class="fas fa-home mr-2"></i>
+            回到首頁
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 聯絡資訊 -->
+    <div class="mt-8 text-center">
+      <p class="text-sm text-gray-600 mb-2">如有任何問題，請聯絡學校相關部門</p>
+      <div class="flex items-center justify-center space-x-6 text-sm">
+        <a href="tel:+886-2-xxxx-xxxx" class="text-primary hover:text-primary-dark transition-colors">
+          <i class="fas fa-phone mr-1"></i>學務處：(02) xxxx-xxxx
+        </a>
+        <a href="tel:+886-2-yyyy-yyyy" class="text-primary hover:text-primary-dark transition-colors">
+          <i class="fas fa-phone mr-1"></i>總務處：(02) yyyy-yyyy
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Print styles -->
+<style media="print">
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .bg-gray-50 {
+    background: white !important;
+  }
+
+  .shadow-xl {
+    box-shadow: none !important;
+  }
+</style>
+{% endblock %}
