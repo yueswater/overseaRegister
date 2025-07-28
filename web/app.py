@@ -20,7 +20,6 @@ app.register_blueprint(registered_list_bp)
 def ping():
     return "pong", 200
 
-
 if __name__ == "__main__":
     import os
 
