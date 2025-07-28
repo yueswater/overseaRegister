@@ -12,7 +12,7 @@
         <i class="fas fa-check-circle text-green-600 text-3xl"></i>
       </div>
       <h1 class="text-3xl font-bold text-gray-900 mb-2">報到完成！</h1>
-      <p class="text-gray-600">恭喜您成功完成新僑生報到流程</p>
+      <p class="text-gray-600">恭喜 {{ record.student.name }} 成功完成新僑生報到流程</p>
     </div>
 
     <!-- 主要內容卡片 -->
@@ -91,10 +91,52 @@
           <h2 class="text-2xl font-semibold text-gray-900">繳費明細</h2>
         </div>
 
-        <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+        <!-- <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <div class="font-mono text-sm leading-relaxed text-gray-700 whitespace-pre-wrap">{{
             record.payment.render_summary() }}</div>
+        </div> -->
+
+        <div class="bg-white border border-gray-300 rounded-xl overflow-hidden">
+          <table class="w-full text-sm text-left border-collapse">
+            <thead class="bg-gray-100 border-b border-gray-300">
+              <tr>
+                <th class="p-3 border-r border-gray-300">收入科目</th>
+                <th class="p-3 border-r border-gray-300">金額</th>
+                <th class="p-3 border-r border-gray-300">收入科目</th>
+                <th class="p-3 border-r border-gray-300">金額</th>
+                <th class="p-3 border-r border-gray-300">收入科目</th>
+                <th class="p-3">金額</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% set items = record.payment.items.items()|list %}
+              {% for i in range(0, items|length, 3) %}
+              <tr class="border-b border-gray-200">
+                {% for j in range(3) %}
+                {% set idx = i + j %}
+                {% set item = items[idx] if idx < items|length else ("", "" ) %} <td
+                  class="p-3 border-r border-gray-200">{{ item[0] }}</td>
+                  <td class="p-3 {% if j < 2 %}border-r border-gray-200{% endif %}">
+                    {% if item[1] %}
+                    {{ "{:,.0f}".format(item[1]) }} 元
+                    {% else %}
+                    -
+                    {% endif %}
+                  </td>
+                  {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot class="font-bold text-gray-900 border-t border-gray-300">
+              <tr>
+                <td class="p-3">合計：</td>
+                <td class="p-3">{{ "{:,.0f}".format(record.payment.total()) }} 元</td>
+                <td colspan="4" class="p-3 text-right">收據編號：{{ record.student.series_id }}</td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
+
 
         <!-- 繳費提醒 -->
         <div class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
@@ -153,8 +195,8 @@
             返回報到頁面
           </a>
 
-          {% if receipt %}
-          <a href="{{ url_for('static', filename='receipts/' ~ receipt) }}" target="_blank"
+          {% if receipt_url %}
+          <a href="{{ receipt_url }}" target="_blank"
             class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-primary-dark transition-colors">
             <i class="fas fa-print mr-2"></i>
             列印報到單

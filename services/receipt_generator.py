@@ -99,5 +99,4 @@ def generate_receipt(record) -> str:
     draw_one_copy(590)
 
     c.save()
-    print(f"[PDF] 收據儲存至：{path}")
     return path
