@@ -5,7 +5,10 @@ import gspread
 from dotenv import load_dotenv
 from google.oauth2.service_account import Credentials
 
+from utils.restore_from_env import restore_from_env
+
 load_dotenv()
+restore_from_env("SERVICE_ACCOUNT_BASE64", "credentials/service_account.json")
 
 logging.basicConfig(level=logging.DEBUG)
 
