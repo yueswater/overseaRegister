@@ -37,3 +37,4 @@ def register():
         return render_template("success.html", record=record, receipt_url=drive_url)
     except Exception:
         logging.exception("Failed to register student.")
+        return "Internal Server Error", 500
