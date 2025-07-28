@@ -1,3 +1,4 @@
+import logging
 import math
 import os
 
@@ -26,8 +27,12 @@ SHEET_NAME = "114"  # 預設工作表名稱
 
 @student_list_bp.route("/students")
 def students():
-    sheet = gc.open_by_key(SHEET_ID_STUDENT).worksheet(SHEET_NAME)
-    data = sheet.get_all_values()
+    try:
+        sheet = gc.open_by_key(SHEET_ID_STUDENT).worksheet(SHEET_NAME)
+        data = sheet.get_all_values()
+    except Exception:
+        logging.exception("讀取 Google Sheet 失敗")
+        return "Server Error: Google Sheet 無法存取", 500
 
     headers = data[0]
     rows = data[1:]
