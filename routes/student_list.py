@@ -7,8 +7,10 @@ from flask import Blueprint, render_template, request
 from google.oauth2.service_account import Credentials
 
 from utils.formatters import format_phone_number
+from utils.restore_from_env import restore_from_env
 
 load_dotenv()
+restore_from_env("SERVICE_ACCOUNT_BASE64", "credentials/service_account.json")
 
 student_list_bp = Blueprint("student_list", __name__)
 
