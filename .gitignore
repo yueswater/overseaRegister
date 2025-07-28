@@ -34,3 +34,4 @@ web/static/images/
 
 # PDF receipts
 *.pdf
+token_drive.pkl

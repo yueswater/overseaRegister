@@ -1,8 +1,10 @@
 import os
-from werkzeug.security import check_password_hash
+
 from dotenv import load_dotenv
+from werkzeug.security import check_password_hash
 
 load_dotenv()
+
 
 def get_admin_accounts() -> dict:
     accounts_env = os.getenv("ACCOUNTS", "")
@@ -13,6 +15,7 @@ def get_admin_accounts() -> dict:
         user, pwd_hash = pair.split(":", 1)
         accounts[user] = pwd_hash
     return accounts
+
 
 def verify_login(username, password):
     accounts = get_admin_accounts()

@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 from flask import Blueprint, render_template, request
 from google.oauth2.service_account import Credentials
 
-from utils.formatters import format_phone_number
+from db.config.payment_schema import ALL_ITEMS
 
 load_dotenv()
 
-student_list_bp = Blueprint("student_list", __name__)
+registered_list_bp = Blueprint("registered_list", __name__)
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 CREDS = Credentials.from_service_account_file(
@@ -18,13 +18,13 @@ CREDS = Credentials.from_service_account_file(
 )
 gc = gspread.authorize(CREDS)
 
-SHEET_ID_STUDENT = os.getenv("SHEET_ID_LOOKUP")  # .env 中設定學生名單 ID
-SHEET_NAME = "114"  # 預設工作表名稱
+SHEET_ID_REGISTER = os.getenv("SHEET_ID_REGISTER")
+SHEET_NAME = "114"  # 可視情況抽成變數
 
 
-@student_list_bp.route("/students")
-def students():
-    sheet = gc.open_by_key(SHEET_ID_STUDENT).worksheet(SHEET_NAME)
+@registered_list_bp.route("/registered")
+def registered_students():
+    sheet = gc.open_by_key(SHEET_ID_REGISTER).worksheet(SHEET_NAME)
     data = sheet.get_all_values()
 
     headers = data[0]
@@ -39,14 +39,21 @@ def students():
     end = start + per_page
     page_data = rows[start:end]
 
-    students = [dict(zip(headers, row)) for row in page_data]
-
-    for s in students:
-        if "聯絡電話" in s:
-            s["聯絡電話"] = format_phone_number(s["聯絡電話"])
+    students = []
+    for row in page_data:
+        s = dict(zip(headers, row))
+        total_paid = 0
+        for item in ALL_ITEMS:
+            value = s.get(item, "0").replace(",", "").strip()
+            try:
+                total_paid += int(value)
+            except ValueError:
+                continue
+        s["繳交總額"] = total_paid
+        students.append(s)
 
     return render_template(
-        "students.html",
+        "registered.html",
         students=students,
         total_pages=total_pages,
         current_page=page,

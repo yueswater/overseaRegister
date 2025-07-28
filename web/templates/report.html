@@ -5,7 +5,7 @@
 {% block content %}
 <div class="min-h-screen bg-gray-50 py-8 px-4">
   <div class="max-w-4xl mx-auto">
-    <!-- 頁面標題 -->
+    <!--Page Title -->
     <div class="text-center mb-8">
       <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
         <i class="fas fa-clipboard-list text-white text-2xl"></i>
@@ -14,100 +14,91 @@
       <p class="text-gray-600">請填寫完整的報到資訊，系統將自動處理分班和學號分配</p>
     </div>
 
-    <!-- 主要表單 -->
+    <!--Main form -->
     <div class="bg-white shadow-xl rounded-2xl overflow-hidden">
       <form action="/register" method="post" class="p-8 space-y-8">
-        
-        <!-- 學生基本資訊區塊 -->
+
+        <!--Student Basic Information Block -->
         <div class="space-y-6">
           <div class="flex items-center space-x-3 pb-2 border-b border-gray-200">
             <i class="fas fa-user-graduate text-primary text-lg"></i>
             <h2 class="text-xl font-semibold text-gray-900">學生基本資訊</h2>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-2">
               <label class="block text-sm font-semibold text-gray-700">
                 <i class="fas fa-user text-primary mr-2"></i>姓名
               </label>
-              <input type="text" 
-                     name="name" 
-                     required 
-                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" 
-                     placeholder="請輸入學生姓名" />
+              <input type="text" name="name" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white"
+                placeholder="請輸入學生姓名" />
             </div>
-            
+
             <div class="space-y-2">
               <label class="block text-sm font-semibold text-gray-700">
                 <i class="fas fa-barcode text-primary mr-2"></i>報到序號
               </label>
-              <input type="text" 
-                     name="series_id" 
-                     required 
-                     placeholder="例如：1140001" 
-                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
+              <input type="text" name="series_id" required placeholder="例如：1140001"
+                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
             </div>
           </div>
         </div>
 
-        <!-- 分班測驗區塊 -->
+        <!--Classification Test Block -->
         <div class="space-y-6">
           <div class="flex items-center space-x-3 pb-2 border-b border-gray-200">
             <i class="fas fa-graduation-cap text-primary text-lg"></i>
             <h2 class="text-xl font-semibold text-gray-900">分班測驗結果</h2>
           </div>
-          
+
           <div class="space-y-2">
             <label class="block text-sm font-semibold text-gray-700">
               <i class="fas fa-check-circle text-primary mr-2"></i>是否通過分班測驗
             </label>
             <div class="relative">
-              <select name="is_pass_exam" 
-                      required 
-                      class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white appearance-none">
+              <select name="is_pass_exam" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white appearance-none">
                 <option value="">請選擇測驗結果</option>
-                <option value="true">✅ 是（通過測驗）</option>
-                <option value="false">❌ 否（未通過測驗）</option>
+                <option value="true">是（通過測驗）</option>
+                <option value="false">否（未通過測驗）</option>
               </select>
-              <i class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+              <i
+                class="fas fa-chevron-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
             </div>
           </div>
         </div>
 
-        <!-- 班級資訊區塊 -->
+        <!--Class Information Block -->
         <div class="space-y-6">
           <div class="flex items-center space-x-3 pb-2 border-b border-gray-200">
             <i class="fas fa-users text-primary text-lg"></i>
             <h2 class="text-xl font-semibold text-gray-900">班級與學號</h2>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-2">
               <label class="block text-sm font-semibold text-gray-700">
                 <i class="fas fa-chalkboard text-primary mr-2"></i>就讀年級班級
               </label>
-              <input type="text" 
-                     name="class_id" 
-                     placeholder="例如：高一忠" 
-                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
+              <input type="text" name="class_id" placeholder="例如：高一忠"
+                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
               <p class="text-xs text-gray-500 mt-1">系統會根據分班測驗結果自動分配</p>
             </div>
-            
+
             <div class="space-y-2">
               <label class="block text-sm font-semibold text-gray-700">
                 <i class="fas fa-id-card text-primary mr-2"></i>正式學號
                 <span class="text-gray-400 font-normal">（選填）</span>
               </label>
-              <input type="text" 
-                     name="student_id" 
-                     placeholder="例：401002" 
-                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
+              <input type="text" name="student_id" placeholder="例：401002"
+                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
               <p class="text-xs text-gray-500 mt-1">若留空，系統將自動分配學號</p>
             </div>
           </div>
         </div>
 
-        <!-- 繳費項目區塊 -->
+        <!--Payment Project Block -->
         <div class="space-y-6">
           <div class="flex items-center justify-between pb-2 border-b border-gray-200">
             <div class="flex items-center space-x-3">
@@ -118,7 +109,7 @@
               <i class="fas fa-edit mr-1"></i>可調整金額
             </span>
           </div>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {% for key in payment_items %}
             <div class="space-y-2">
@@ -127,17 +118,14 @@
               </label>
               <div class="relative">
                 <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">NT$</span>
-                <input type="number" 
-                       name="payment[{{ key }}]" 
-                       value="{{ default_payments[key] }}" 
-                       min="0"
-                       class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
+                <input type="number" name="payment[{{ key }}]" value="{{ default_payments[key] }}" min="0"
+                  class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 focus:bg-white" />
               </div>
             </div>
             {% endfor %}
           </div>
-          
-          <!-- 繳費總計 -->
+
+          <!--Total payment -->
           <div class="bg-primary/5 rounded-xl p-4 border border-primary/20">
             <div class="flex items-center justify-between">
               <span class="text-lg font-semibold text-gray-900">
@@ -151,14 +139,14 @@
           </div>
         </div>
 
-        <!-- 提交按鈕 -->
+        <!--Submit Button -->
         <div class="pt-6 border-t border-gray-200">
-          <button type="submit" 
-                  class="w-full bg-primary text-white font-semibold py-4 px-8 rounded-xl hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+          <button type="submit"
+            class="w-full bg-primary text-white font-semibold py-4 px-8 rounded-xl hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
             <i class="fas fa-paper-plane mr-2"></i>
             送出報到資料
           </button>
-          
+
           <p class="text-center text-sm text-gray-500 mt-4">
             <i class="fas fa-shield-alt mr-1"></i>
             您的資料將受到完整保護，僅供學校行政使用
@@ -169,27 +157,51 @@
   </div>
 </div>
 
-<!-- JavaScript for calculating total amount -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const paymentInputs = document.querySelectorAll('input[name^="payment["]');
-  const totalElement = document.getElementById('total-amount');
-  
-  function calculateTotal() {
-    let total = 0;
+  document.addEventListener('DOMContentLoaded', function () {
+    const paymentInputs = document.querySelectorAll('input[name^="payment["]');
+    const totalElement = document.getElementById('total-amount');
+    const seriesInput = document.querySelector('input[name="series_id"]');
+    const nameInput = document.querySelector('input[name="name"]');
+
+    function calculateTotal() {
+      let total = 0;
+      paymentInputs.forEach(input => {
+        const value = parseFloat(input.value) || 0;
+        total += value;
+      });
+      totalElement.textContent = `NT$ ${total.toLocaleString()}`;
+    }
+
     paymentInputs.forEach(input => {
-      const value = parseFloat(input.value) || 0;
-      total += value;
+      input.addEventListener('input', calculateTotal);
     });
-    totalElement.textContent = `NT$ ${total.toLocaleString()}`;
-  }
-  
-  paymentInputs.forEach(input => {
-    input.addEventListener('input', calculateTotal);
+    calculateTotal();
+
+    //Name query function
+    seriesInput.addEventListener('blur', async function () {
+      const seriesId = seriesInput.value.trim();
+      if (!seriesId) return;
+
+      try {
+        const response = await fetch(`/lookup-name?series_id=${encodeURIComponent(seriesId)}`);
+        if (!response.ok) throw new Error("查詢失敗");
+
+        const data = await response.json();
+        if (data.name) {
+          nameInput.value = data.name;
+          nameInput.classList.remove("border-red-400");
+        } else {
+          nameInput.value = "";
+          nameInput.classList.add("border-red-400");
+          alert("查無此序號，請確認輸入是否正確");
+        }
+      } catch (err) {
+        console.error("錯誤：", err);
+        alert("無法連線到伺服器，請稍後再試");
+      }
+    });
   });
-  
-  // Calculate initial total
-  calculateTotal();
-});
 </script>
+
 {% endblock %}

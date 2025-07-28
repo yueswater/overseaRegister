@@ -1,11 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+
 from services.auth_service import verify_login
 
 auth_bp = Blueprint("auth", __name__)
 
+
 @auth_bp.route("/")
 def index():
     return render_template("index.html")
+
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
@@ -22,6 +25,7 @@ def login():
             flash("帳號或密碼錯誤", "error")
 
     return render_template("login.html")
+
 
 @auth_bp.route("/logout")
 def logout():
