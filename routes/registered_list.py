@@ -1,3 +1,4 @@
+import logging
 import math
 import os
 
@@ -26,8 +27,12 @@ SHEET_NAME = "114"  # 可視情況抽成變數
 
 @registered_list_bp.route("/registered")
 def registered_students():
-    sheet = gc.open_by_key(SHEET_ID_REGISTER).worksheet(SHEET_NAME)
-    data = sheet.get_all_values()
+    try:
+        sheet = gc.open_by_key(SHEET_ID_REGISTER).worksheet(SHEET_NAME)
+        data = sheet.get_all_values()
+    except Exception:
+        logging.exception("讀取 Google Sheet 失敗")
+        return "Server Error: Google Sheet 無法存取", 500
 
     headers = data[0]
     rows = data[1:]

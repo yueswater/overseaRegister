@@ -24,14 +24,18 @@ SHEET_NAME = "114"
 
 
 def append_student_record(record):
-    sheet = gc.open_by_key(SHEET_ID_REGISTER).worksheet(SHEET_NAME)
-    existing_values = sheet.col_values(1)  # 第一欄為 series_id
+    try:
+        sheet = gc.open_by_key(SHEET_ID_REGISTER).worksheet(SHEET_NAME)
+        existing_values = sheet.col_values(1)
+    except Exception:
+        logging.exception("讀取 Google Sheet 失敗")
+        return "Server Error: Google Sheet 無法存取", 500
 
     if record.student.series_id in existing_values:
         logging.error(f"序號 {record.student.series_id} 已存在，略過寫入")
-        return  # 已存在就不寫入
+        return  # Don't write it if it already exists
 
-    # 準備 row 資料
+    # Preparation row document
     row = (
         [
             record.student.series_id,
