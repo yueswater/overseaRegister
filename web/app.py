@@ -16,5 +16,9 @@ app.register_blueprint(student_list_bp)
 app.register_blueprint(registered_list_bp)
 
 
+@app.route("/ping")
+def ping():
+    return "pong", 200
+
 if __name__ == "__main__":
     app.run(port=10301)
