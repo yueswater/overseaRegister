@@ -28,10 +28,6 @@ data/*.csv
 data/receipts/
 web/static/receipts/
 
-# Fonts and images (if not versioned)
-web/static/fonts/
-web/static/images/
-
 # PDF receipts
 *.pdf
 
