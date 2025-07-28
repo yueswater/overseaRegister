@@ -18,6 +18,9 @@ dependencies = [
     "google-api-python-client (>=2.177.0,<3.0.0)"
 ]
 
+[tool.poetry]
+package-mode = false
+
 [tool.isort]
 profile = "black"
 line_length = 100
